@@ -6,7 +6,7 @@ from app.schemas.recipes import Recipe, Ingredients
 
 
 router = APIRouter()
-df = pd.read_csv(r'C:\Users\rodin\PycharmProjects\ColingPython-p2\seminar_5\app\routers\eda.csv')
+df = pd.read_csv('/app/./app/routers/eda.csv')
 
 
 @router.get('/recipes/query')
