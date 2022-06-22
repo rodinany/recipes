@@ -1,6 +1,8 @@
 from fastapi import APIRouter, status
 import pandas as pd
 import requests
+import pymorphy2
+import re
 from bs4 import BeautifulSoup
 from app.schemas.recipes import Recipe, Ingredients
 
