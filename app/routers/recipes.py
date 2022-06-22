@@ -163,7 +163,7 @@ def search_by_ingr(ingr: Ingredients):
         line = re.sub(r'\d+', '--', line)
         line_list = re.split(r'\s+(?=[А-Я])', line)
         tokens = list(map(delete, line_list))
-        
+
     for i in df['ingridient_keywords']:
         list_i = i.strip("{}").split()
         new_list = list(map(strip, list_i))
@@ -174,7 +174,7 @@ def search_by_ingr(ingr: Ingredients):
                        'ingredients': tokens
             }
             result.append(res_rec)
-    result.append(user_list)
+
     if result:
         return result
     else:
