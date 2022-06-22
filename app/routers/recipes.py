@@ -90,8 +90,7 @@ def top_cal(calories: int, topn: int) -> dict:
 
 @router.get('/recipes/')
 def top_dif(difficulty: str, topn: int) -> dict:
-    dif_df = pd.read_csv(open(r'C:\Users\rodin\PycharmProjects\ColingPython-p2\seminar_5\app\routers\difficulty.csv',
-                              'r', errors='ignore'),
+    dif_df = pd.read_csv(open('/app/./app/routers/difficulty.csv', 'r', errors='ignore'),
                          names=['id', 'name', 'difficulty'])
     result = []
     if difficulty == 'hard':
