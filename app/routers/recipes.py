@@ -135,18 +135,46 @@ def search_by_ingr(ingr: Ingredients):
     def strip(string):
         return string.strip("'',")
 
+    def normalize(ingr):
+        token = ingr.split()
+        morph = pymorphy2.MorphAnalyzer()
+        if len(token) == 1:
+            p = morph.parse(token[0])[0]
+            return p.normal_form
+        else:
+            p = morph.parse(token[0])[0]
+            n = morph.parse(token[1])[0]
+            return p.normal_form, n.normal_form
+
     result = []
+    user_list = list(map(normalize, ingr.ingrs_list))
+
+    def strip(string):
+        stop_words = ['--', '½', '¾', '%', 'щепотка', 'по вкусу']
+        for i in stop_words:
+            if i in string:
+                string = string[0:int(string.find(i)) - 1]
+        return string
+
+    for i in df['list_ingrid']:
+        line = i.strip('""')
+        line = re.sub(r'\d+', '--', line)
+        line_list = re.split(r'\s+(?=[А-Я])', line)
+        tokens = list(map(strip, line_list))
+
     for i in df['ingridient_keywords']:
         list_i = i.strip("{}").split()
         new_list = list(map(strip, list_i))
-        if set(ingr.ingrs_list) <= set(new_list):
+
+        if set(user_list) <= set(new_list):
             res_rec = {'id': df.loc[df['ingridient_keywords'] == i, 'id'].values[0],
                        'name': df.loc[df['ingridient_keywords'] == i, 'name'].values[0],
-                       'ingredients': i
+                       'ingredients': tokens
             }
             result.append(res_rec)
+    result.append(user_list)
     if result:
         return result
     else:
-        return 'recipes not found'
+        return 'recipes with such ingredients not found'
 
