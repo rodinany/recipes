@@ -158,13 +158,13 @@ def search_by_ingr(ingr: Ingredients):
             user_list.append(n.normal_form)
 
     result = []
-    for i in df['list_ingrid']:
-        line = i.strip('""')
+
+    for i in df['ingridient_keywords']:
+        line = df.loc[df['ingridient_keywords'] == i, 'list_ingrid'].values[0].strip('""')
         line = re.sub(r'\d+', '--', line)
         line_list = re.split(r'\s+(?=[А-Я])', line)
         tokens = list(map(delete, line_list))
 
-    for i in df['ingridient_keywords']:
         list_i = i.strip("{}").split()
         new_list = list(map(strip, list_i))
 
