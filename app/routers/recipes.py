@@ -171,12 +171,11 @@ def search_by_ingr(ingr: Ingredients):
         if set(user_list) <= set(new_list):
             res_rec = {'id': df.loc[df['ingridient_keywords'] == i, 'id'].values[0],
                        'name': df.loc[df['ingridient_keywords'] == i, 'name'].values[0],
-                       'ingredients': tokens
-            }
+                       'ingredients': tokens}
             result.append(res_rec)
 
-        if result:
-            return result
-        else:
-            return 'recipes with such ingredients not found'
+    if result:
+        return result
+    else:
+        return 'recipes with such ingredients not found'
 
