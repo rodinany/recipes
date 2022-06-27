@@ -175,8 +175,8 @@ def search_by_ingr(ingr: Ingredients):
             }
             result.append(res_rec)
 
-    if result:
-        return result
-    else:
-        return 'recipes with such ingredients not found'
+        if result:
+            return result
+        else:
+            return 'recipes with such ingredients not found'
 
